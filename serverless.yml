@@ -1,0 +1,61 @@
+service: rise-hammocks
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: dev 
+  region: us-west-2
+
+plugins: 
+  - serverless-s3-sync
+
+custom: 
+  siteName: risehammocks.com
+  s3Sync:
+    - bucketName: ${self:custom.siteName}
+      localDir: static
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+plugins:
+  - serverless-s3-sync
+
+resources: 
+  Resources: 
+    StaticSite: 
+      Type: AWS::S3::Bucket
+      Properties:
+        AccessControl: PublicRead 
+        BucketName: ${self:custom.siteName}
+        WebsiteConfiguration:
+          IndexDocument: index.html
+
+  StaticSiteS3BucketPolicy:
+    Type: AWS::S3::BucketPolicy 
+    Properties:
+      Bucket: 
+        Ref: StaticSite
+      PolicyDocument: 
+        Statement: 
+          - Sid: PublicReadGetObject
+            Effect: Allow 
+            Principal: "*"
+            Action: 
+            - s3:GetObject
+            Resource: 
+              Fn::Join: [
+                "", [
+                  "arn:aws:s3:::",
+                  {
+                    "Ref": "StaticSite"
+                  },
+                  "/*"
+                ]
+              ]
