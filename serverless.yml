@@ -7,8 +7,9 @@ provider:
   stage: dev 
   region: us-west-2
 
-plugins: 
-  -
+plugins:
+  - serverless-offline
+
 custom: 
   siteName: risehammocks.com
 
@@ -19,3 +20,19 @@ functions:
       - http:
           path: /
           method: get
+
+resources: 
+  Resources: 
+    ProfileTable:
+      Type: AWS::DynamoDB::Table
+      Properties: 
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: email
+            AttibuteType: S
+        KeySchema: 
+          - AttributeName: email
+            KeyType: HASH 
+
+
+
