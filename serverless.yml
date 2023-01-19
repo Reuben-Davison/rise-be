@@ -9,9 +9,12 @@ provider:
 
 plugins:
   - serverless-offline
+  - serverless-appsync-plugin
 
 custom: 
   siteName: risehammocks.com
+  appSync: 
+    - ${file(serverless.appsync-api.yml)}
 
 functions:
   hello:
@@ -28,11 +31,11 @@ resources:
       Properties: 
         BillingMode: PAY_PER_REQUEST
         AttributeDefinitions:
-          - AttributeName: email
-            AttibuteType: S
-        KeySchema: 
-          - AttributeName: email
-            KeyType: HASH 
+          - AttributeName: profileId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: profileId
+            KeyType: HASH
 
 
 
