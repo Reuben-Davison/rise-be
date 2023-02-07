@@ -1,0 +1,4 @@
+name: rise_be
+schema: schema.api.graphql
+authenticationType: AMAZON_COGNITO_USER_POOL
+userPoolId: !Ref 
