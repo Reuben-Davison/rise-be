@@ -10,5 +10,4 @@ type Query {
 type User {
     name: String
     email: String!
-
 }

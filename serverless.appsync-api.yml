@@ -9,11 +9,12 @@ mappingTemplatesLocation: mapping-templates
 mappingTemplates: 
   - type: Query 
     field: getUser
-    datasource: usersTable
+    dataSource: usersTable
 
 dataSources: 
   - type: NONE
     name: None
+
   - type: AMAZON_DYNAMODB
     name: usersTable
     config:
