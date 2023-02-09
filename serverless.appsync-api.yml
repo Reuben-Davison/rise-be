@@ -1,4 +1,20 @@
 name: rise_be
 schema: schema.api.graphql
-authenticationType: AMAZON_COGNITO_USER_POOL
-userPoolId: !Ref 
+authenticationType: AWS_IAM
+# authenticationType: AMAZON_COGNITO_USER_POOL
+# userPoolConfig:
+#   userPoolId: !Ref CognitoUserPool
+
+mappingTemplatesLocation: mapping-templates
+mappingTemplates: 
+  - type: Query 
+    field: getUser
+    datasource: usersTable
+
+dataSources: 
+  - type: NONE
+    name: None
+  - type: AMAZON_DYNAMODB
+    name: usersTable
+    config:
+      tableName: !Ref UsersTable 
