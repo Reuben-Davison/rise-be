@@ -3,12 +3,12 @@ schema {
 }
 
 type Query {
-    getUser(userID: string): User!
+    getUser(userId: String): User!
 }
 
 
 type User {
     name: String
     email: String!
-    
+
 }
